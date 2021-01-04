@@ -9,7 +9,6 @@ namespace JPMorrow.UI.ViewModels
 	using JPMorrow.Revit.Documents;
 	using System.Windows.Threading;
 	using System.Collections.Generic;
-	using JPMorrow.Revit.Tools;
 	using Autodesk.Revit.DB;
 	using System.Collections.ObjectModel;
 	using MainApp;

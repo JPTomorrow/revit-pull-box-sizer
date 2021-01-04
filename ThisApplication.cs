@@ -40,21 +40,14 @@ namespace MainApp
 		// this is equivilent to a "Main(void)" function you would find if you created a black c# project. This is just Revit's redirection of the main function to point towards Revits API  It is where the program officially "starts" There are some preprocess functions you can call that will come before this, such as OnModuleLoad() that will fire before this execute loop, for added granularity in the setup
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
+			string[] dataDirectories = new string[0];
+			bool debugApp = false;
+
 			//set revit model info
 			// ModelInfo is a very key data structure to understand. It is located in common_build_source/RevitDocumentManager.cs.
 			// Packaging the relevent information to manupulate the Revit Model using the commandData in parameter from this Execute loop. I can then pass all of this information to a UI in order to get some shit done.
-			ModelInfo revit_info = ModelInfo.StoreDocuments(commandData);
+			ModelInfo revit_info = ModelInfo.StoreDocuments(commandData, dataDirectories, debugApp);
 			IntPtr main_rvt_wind = Process.GetCurrentProcess().MainWindowHandle;
-
-			// set app path
-			Assembly assem = Assembly.GetExecutingAssembly();
-			UriBuilder uri = new UriBuilder(assem.CodeBase);
-			string module_path = Path.GetDirectoryName(Uri.UnescapeDataString(uri.Path));
-			App_Base_Path = RAP.GetApplicationBasePath(module_path, assem.GetName().Name, String.Join, TestBed_Debug_Switch);
-			Settings_Base_Path = App_Base_Path + "settings\\";
-
-			//create data directories
-			RAP.GenAppStorageStruct(Settings_Base_Path, Data_Dirs, Directory.CreateDirectory, Directory.Exists);
 
 			// SIGN UP FOR REVIT EVENT MESSAGING SYSTEM ON ALL RELEVANT CLASSES BEFORE WE LEAVE EXECUTE LOOP
 			PullBox.PullBoxSizingSignUp();
