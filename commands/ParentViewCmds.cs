@@ -41,11 +41,12 @@ namespace JPMorrow.UI.ViewModels
                 var rem_dias = RemDiasItems.Select(x => x.Value).ToList();
                 PullBox pb = new PullBox(BoxDepthItems[SelBoxDepth], ConduitDiaItems[SelConduitDiaDiameter], rem_dias, StrPull);
                 DimensionStr = pb.Dimensions.DimensionString;
-
                 RaisePropertyChanged("DimensionStr");
+
                 if(pb == null) return;
 
                 var sel_pb_ids = Info.UIDOC.Selection.GetElementIds();
+
                 if(!sel_pb_ids.Any()) return;
 
                 var final_elements = new List<Element>();
@@ -55,7 +56,7 @@ namespace JPMorrow.UI.ViewModels
 
                     bool pparse(string param_name) => el.LookupParameter(param_name) == null;
 
-                    if(	el == null || !el.Category.Name.Equals("Electrical Fixtures") ||
+                    if(	el == null || !el.Category.Name.Equals("Electrical Equipment") ||
                         pparse("Width") || pparse("Depth") || pparse("Height"))
                     {
                         return;

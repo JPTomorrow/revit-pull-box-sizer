@@ -65,7 +65,7 @@ namespace JPMorrow.Revit.PullBoxes
 		/// </summary>
 		public static void SizePullBoxEv(ModelInfo info, IEnumerable<Element> boxes, PullBox box_info)
 		{
-			handler_size_box.Info = info;
+            handler_size_box.Info = info;
 			handler_size_box.Boxes = boxes.ToList();
 			handler_size_box.BoxInfo = box_info;
 
